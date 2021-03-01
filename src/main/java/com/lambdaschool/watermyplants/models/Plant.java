@@ -1,6 +1,8 @@
 package com.lambdaschool.watermyplants.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,14 +12,11 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long plantid;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    private String plantname;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(unique = true, nullable = false)
-    private String phonenumber;
+    @ManyToOne
+    @JsonIgnoreProperties(value="plantlist")
+    private User user;
 
     public Plant() {
     }
@@ -30,27 +29,19 @@ public class Plant {
         this.plantid = plantid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPlantname() {
+        return plantname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPlantname(String plantname) {
+        this.plantname = plantname;
     }
 
-    public String getPassword() {
-        return password;
+    public User getUser() {
+        return user;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhonenumber() {
-        return phonenumber;
-    }
-
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
