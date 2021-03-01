@@ -71,4 +71,10 @@ public class PlantServiceImpl implements PlantService{
         }
 
     }
+
+    @Override
+    public Plant findPlantById(long plantid) {
+        Plant plant = plantrepo.findById(plantid).orElseThrow(()-> new EntityNotFoundException("plant with id: "+plantid+" not found"));
+        return plant;
+    }
 }

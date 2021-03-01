@@ -9,4 +9,5 @@ public interface PlantService {
     void deletePlantById(long plantid);
     void updatePlant(Plant plant, long plantid);
     List<Plant> findAllPlants();
+    Plant findPlantById(long plantid);
 }

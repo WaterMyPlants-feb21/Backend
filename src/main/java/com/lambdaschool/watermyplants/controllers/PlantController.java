@@ -22,6 +22,12 @@ public class PlantController {
         return new ResponseEntity<>(plantlist, HttpStatus.OK);
     }
 
+    @GetMapping(value="/plant/{plantid}", produces = {"application/json"})
+    public ResponseEntity<?> getPlantById(@PathVariable long plantid){
+        Plant plant = plantserv.findPlantById(plantid);
+        return new ResponseEntity<>(plant, HttpStatus.OK);
+    }
+
     @PostMapping(value="/plant", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewPlant(@RequestBody Plant newplant){
         Plant saved = plantserv.save(newplant);
