@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="plants")
-public class Plant {
+public class Plant extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long plantid;

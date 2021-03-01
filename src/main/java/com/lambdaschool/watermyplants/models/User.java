@@ -3,12 +3,13 @@ package com.lambdaschool.watermyplants.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userid;
@@ -17,6 +18,7 @@ public class User {
     private String username;
 
     @Column(unique = true)
+    @Pattern(regexp="(^$|[0-9]{10})")
     private String phoneNumber;
 
     @Column(nullable = false)
