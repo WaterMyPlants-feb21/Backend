@@ -1,9 +1,10 @@
 package com.lambdaschool.watermyplants.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     @Id
@@ -18,6 +19,12 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user",allowSetters = true)
+    private List<Plant> plantList = new ArrayList<>();
 
     public User()
     {
@@ -71,5 +78,15 @@ public class User {
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public List<Plant> getPlantList()
+    {
+        return plantList;
+    }
+
+    public void setPlantList(List<Plant> plantList)
+    {
+        this.plantList = plantList;
     }
 }
