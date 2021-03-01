@@ -13,7 +13,7 @@ public class UserAuditing implements AuditorAware<String>
         String uname;
         Authentication authentication = SecurityContextHolder.getContext()
             .getAuthentication();
-        
+
         if (authentication != null)
         {
             uname = authentication.getName();
