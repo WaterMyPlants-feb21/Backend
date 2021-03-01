@@ -3,6 +3,7 @@ package com.lambdaschool.watermyplants.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class User {
     private String username;
 
     @Column(unique = true)
+    @Pattern(regexp="(^$|[0-9]{10})")
     private String phoneNumber;
 
     @Column(nullable = false)
