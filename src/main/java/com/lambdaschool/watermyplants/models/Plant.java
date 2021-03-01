@@ -14,6 +14,9 @@ public class Plant {
 
     private String plantname;
 
+    @Column(nullable = false)
+    private double intervalinhrs;
+
     @ManyToOne
     @JsonIgnoreProperties(value="plantlist")
     private User user;
@@ -43,5 +46,13 @@ public class Plant {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getIntervalinhrs() {
+        return intervalinhrs;
+    }
+
+    public void setIntervalinhrs(double intervalinhrs) {
+        this.intervalinhrs = intervalinhrs;
     }
 }
