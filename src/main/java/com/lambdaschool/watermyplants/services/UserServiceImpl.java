@@ -54,8 +54,18 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public User update(User user)
+    public User update(User user,long id)
     {
-        return null;
+        User updateUser = findUserById(id);
+
+        if(user.getPassword() != null)
+        {
+            updateUser.setPassword(user.getPassword());
+        }
+        if(user.getPhoneNumber() != null)
+        {
+            updateUser.setPhoneNumber(user.getPhoneNumber());
+        }
+        return userrepos.save(updateUser);
     }
 }
