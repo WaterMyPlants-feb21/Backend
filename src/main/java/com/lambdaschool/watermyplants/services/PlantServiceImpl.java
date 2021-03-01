@@ -77,4 +77,9 @@ public class PlantServiceImpl implements PlantService{
         Plant plant = plantrepo.findById(plantid).orElseThrow(()-> new EntityNotFoundException("plant with id: "+plantid+" not found"));
         return plant;
     }
+
+    @Override
+    public void deleteAll(){
+        plantrepo.deleteAll();
+    }
 }

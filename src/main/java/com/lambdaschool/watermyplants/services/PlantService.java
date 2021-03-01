@@ -10,4 +10,5 @@ public interface PlantService {
     void updatePlant(Plant plant, long plantid);
     List<Plant> findAllPlants();
     Plant findPlantById(long plantid);
+    void deleteAll();
 }
