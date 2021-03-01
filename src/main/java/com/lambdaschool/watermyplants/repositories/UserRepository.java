@@ -1,4 +1,7 @@
 package com.lambdaschool.watermyplants.repositories;
 
-public class UserRepository {
+import com.lambdaschool.watermyplants.models.User;
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository <User, Long> {
 }
