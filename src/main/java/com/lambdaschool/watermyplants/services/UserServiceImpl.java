@@ -68,4 +68,11 @@ public class UserServiceImpl implements UserService{
         }
         return userrepos.save(updateUser);
     }
+
+    @Transactional
+    @Override
+    public void deleteAll()
+    {
+        userrepos.deleteAll();
+    }
 }
