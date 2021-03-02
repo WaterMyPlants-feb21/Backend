@@ -60,8 +60,8 @@ public class SeedData
         testuser2 = userservice.save(testuser2);
 
         Plant p1 = new Plant();
-        p1.setPlantname("flower");
-        p1.setIntervalinhrs(24);
+        p1.setNickname("flower");
+        p1.setH2oFrequency(24);
         p1.setUser(testuser1);
         plantservice.save(p1);
     }
