@@ -36,30 +36,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder encoder;
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer configurer)
-        throws
-        Exception
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception
     {
-        configurer.inMemory()
+        clients.inMemory()
             .withClient(CLIENT_ID)
             .secret(encoder.encode(CLIENT_SECRET))
-            .authorizedGrantTypes(GRANT_TYPE_PASSWORD,
-                AUTHORIZATION_CODE)
-            .scopes(SCOPE_READ,
-                SCOPE_WRITE,
-                SCOPE_TRUST)
+            .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE)
+            .scopes(SCOPE_WRITE,SCOPE_READ,SCOPE_TRUST)
             .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS);
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-        throws
-        Exception
-    {
-        endpoints.tokenStore(tokenStore)
-            .authenticationManager(authenticationManager);
-        // here instead of our clients requesting authentication at the endpoint /oauth/token, they request it at the endpoint /login
-        endpoints.pathMapping("/oauth/token",
-            "/login");
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception{
+        endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager);
+        endpoints.pathMapping("/oath/token", "/login");
     }
 }

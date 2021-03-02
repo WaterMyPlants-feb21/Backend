@@ -32,14 +32,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/users/**")
                 .authenticated()
-                .antMatchers("/plants")
-                .authenticated()
-                .antMatchers("/plant/**")
+                .antMatchers("/plants/**")
                 .authenticated()
                 .antMatchers("/logout")
                 .authenticated()
                 .anyRequest().denyAll()
-                .and().exceptionHandling()
+                .and()
+                .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
         https.csrf().disable();
