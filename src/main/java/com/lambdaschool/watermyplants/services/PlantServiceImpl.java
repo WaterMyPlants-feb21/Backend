@@ -30,8 +30,8 @@ public class PlantServiceImpl implements PlantService{
         if(plant.getPlantid()!=0){
             tempplant = plantrepo.findById(plant.getPlantid()).orElseThrow(()->new EntityNotFoundException("Plant with id: "+plant.getPlantid()+" not found!"));
         }
-        tempplant.setPlantname(plant.getPlantname());
-        tempplant.setPlantname(plant.getPlantname());
+        tempplant.setNickname(plant.getNickname());
+        tempplant.setNickname(plant.getNickname());
         if(userrepo.findById(plant.getUser().getUserid()).isPresent()){
             tempplant.setUser(userrepo.findById(plant.getUser().getUserid()).orElseThrow(()-> new EntityNotFoundException("user with id " + plant.getUser().getUserid() + " does not exist")));
         }else{
@@ -60,8 +60,8 @@ public class PlantServiceImpl implements PlantService{
             if(plant.getPlantid()!=0){
                 updateplant.setPlantid(plant.getPlantid());
             }
-            if(plant.getPlantname()!=null){
-                updateplant.setPlantname(plant.getPlantname());
+            if(plant.getNickname()!=null){
+                updateplant.setNickname(plant.getNickname());
             }
             if(plant.getUser()!=null){
                 if(userrepo.findById(plant.getUser().getUserid()).isPresent()){

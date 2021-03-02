@@ -13,10 +13,12 @@ public class Plant extends Auditable {
     private long plantid;
 
     @Column(nullable=false)
-    private String plantname;
+    private String nickname;
+
+    private String species;
 
     @Column(nullable = false)
-    private double intervalinhrs;
+    private double h2oFrequency;
 
     @ManyToOne
     @JsonIgnoreProperties(value="plantList")
@@ -27,8 +29,8 @@ public class Plant extends Auditable {
 
     public Plant(long plantid, String plantname, double intervalinhrs, User user) {
         this.plantid = plantid;
-        this.plantname = plantname;
-        this.intervalinhrs = intervalinhrs;
+        this.nickname = plantname;
+        this.h2oFrequency = intervalinhrs;
         this.user = user;
     }
 
@@ -40,12 +42,12 @@ public class Plant extends Auditable {
         this.plantid = plantid;
     }
 
-    public String getPlantname() {
-        return plantname;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setPlantname(String plantname) {
-        this.plantname = plantname;
+    public void setNickname(String plantname) {
+        this.nickname = plantname;
     }
 
     public User getUser() {
@@ -56,11 +58,11 @@ public class Plant extends Auditable {
         this.user = user;
     }
 
-    public double getIntervalinhrs() {
-        return intervalinhrs;
+    public double getH2oFrequency() {
+        return h2oFrequency;
     }
 
-    public void setIntervalinhrs(double intervalinhrs) {
-        this.intervalinhrs = intervalinhrs;
+    public void setH2oFrequency(double intervalinhrs) {
+        this.h2oFrequency = intervalinhrs;
     }
 }
