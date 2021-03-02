@@ -1,7 +1,9 @@
 package com.lambdaschool.watermyplants;
 
 import com.lambdaschool.watermyplants.models.Plant;
+import com.lambdaschool.watermyplants.models.Role;
 import com.lambdaschool.watermyplants.models.User;
+import com.lambdaschool.watermyplants.models.UserRole;
 import com.lambdaschool.watermyplants.services.PlantService;
 import com.lambdaschool.watermyplants.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,34 +35,31 @@ public class SeedData
         userservice.deleteAll();
         plantservice.deleteAll();
 
+        Role r1 = new Role("admin");
+        Role r2 = new Role("user");
+
         User testuser1 = new User();
         testuser1.setUsername("admin");
-        testuser1.setPassword("testpass");
-        testuser1.setPhoneNumber("+1(208)555-2121");
+        //unencrypted password = adminpass
+        testuser1.setPassword("$2y$12$UZekIqOPntRiqgW0Cuzf4.tMO6ZPvRcHfGxDPMkHJ.z9dFw8STjz.");
+        testuser1.setPhoneNumber("2084212696");
+        testuser1.getRoles().add(new UserRole(testuser1, r1));
 
         User testuser2 = new User();
-        testuser2.setUsername("tester");
-        testuser2.setPassword("password");
-        testuser2.setPhoneNumber("+1(206)555-2929");
+        testuser2.setUsername("testuser");
+        //unencrypted password = password
+        testuser2.setPassword("$2y$12$UQEpomEzFJz6wEyzUKUhoOv9QElCC9/x21Y94MyLBkP/c1H1CEvW6");
+        testuser2.setPhoneNumber("2485556351");
+        testuser2.getRoles().add(new UserRole(testuser2, r2));
+
+        testuser1 = userservice.save(testuser1);
+        testuser2 = userservice.save(testuser2);
 
         Plant p1 = new Plant();
+        p1.setPlantid(11);
         p1.setPlantname("flower");
         p1.setIntervalinhrs(24);
         p1.setUser(testuser1);
-
-        Plant p2 = new Plant();
-        p2.setPlantname("succulent");
-        p2.setIntervalinhrs(36);
-        p2.setUser(testuser2);
-
-        testuser1.getPlantList().add(p1);
-        testuser2.getPlantList().add(p2);
-
-        userservice.save(testuser1);
-        userservice.save(testuser2);
-
-        plantservice.save(p1);
-        plantservice.save(p2);
 
     }
 }

@@ -1,11 +1,16 @@
 package com.lambdaschool.watermyplants.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -30,18 +35,23 @@ public class User extends Auditable{
     @JsonIgnoreProperties(value = "user",allowSetters = true)
     private List<Plant> plantList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user",
+            allowSetters = true)
+    private Set<UserRole> roles = new HashSet<>();
+
     public User()
     {
     }
 
     public User(
         String username,
-        String phoneNumber,
         String password)
     {
-        this.username = username;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
+        setUsername(username);
+        setPassword(password);
     }
 
     public long getUserid()
@@ -81,7 +91,20 @@ public class User extends Auditable{
 
     public void setPassword(String password)
     {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.password = encoder.encode(password);
+    }
+
+    public void setPasswordNoEncrypt(String password){
         this.password = password;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 
     public List<Plant> getPlantList()
@@ -92,5 +115,28 @@ public class User extends Auditable{
     public void setPlantList(List<Plant> plantList)
     {
         this.plantList = plantList;
+    }
+
+    @JsonIgnore
+    public List<SimpleGrantedAuthority> getAuthority(){
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for(UserRole r:this.roles){
+            String myRole = "ROLE_" + r.getRole().getName().toUpperCase();
+            authorities.add(new SimpleGrantedAuthority(myRole));
+        }
+        return authorities;
+
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", plantList=" + plantList +
+                '}';
     }
 }

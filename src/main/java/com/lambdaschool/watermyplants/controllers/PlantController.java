@@ -30,8 +30,15 @@ public class PlantController {
 
     @PostMapping(value="/plant", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewPlant(@RequestBody Plant newplant){
+        newplant.setPlantid(0);
         Plant saved = plantserv.save(newplant);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value="/plant/{plantid}")
+    public ResponseEntity<?> putUpdatePlant(@RequestBody Plant updateplant, @PathVariable long plantid){
+        Plant updatedplant = plantserv.save(updateplant);
+        return new ResponseEntity<>(null, null, HttpStatus.OK);
     }
 
     @PatchMapping(value="/plant/{plantid}", consumes = {"application/json"})
