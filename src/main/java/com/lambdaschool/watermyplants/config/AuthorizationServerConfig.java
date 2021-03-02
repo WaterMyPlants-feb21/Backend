@@ -1,7 +1,6 @@
 package com.lambdaschool.watermyplants.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,18 +36,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder encoder;
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception{
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception
+    {
         clients.inMemory()
-                .withClient(CLIENT_ID)
-                .secret(encoder.encode(CLIENT_SECRET))
-                .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE)
-                .scopes(SCOPE_READ, SCOPE_TRUST, SCOPE_WRITE)
-                .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS);
+            .withClient(CLIENT_ID)
+            .secret(encoder.encode(CLIENT_SECRET))
+            .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE)
+            .scopes(SCOPE_WRITE,SCOPE_READ,SCOPE_TRUST)
+            .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception{
         endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager);
-//        endpoints.pathMapping("/oath/token", "/login");
+        endpoints.pathMapping("/oath/token", "/login");
     }
 }

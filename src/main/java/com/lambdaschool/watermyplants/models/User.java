@@ -2,6 +2,7 @@ package com.lambdaschool.watermyplants.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -27,6 +28,7 @@ public class User extends Auditable{
     private String phoneNumber;
 
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @OneToMany(mappedBy = "user",
@@ -48,10 +50,12 @@ public class User extends Auditable{
 
     public User(
         String username,
-        String password)
+        String password,
+        String phoneNumber)
     {
         setUsername(username);
         setPassword(password);
+        this.phoneNumber = phoneNumber;
     }
 
     public long getUserid()

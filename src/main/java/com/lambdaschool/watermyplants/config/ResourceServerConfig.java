@@ -30,21 +30,20 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/webjars/**",
                         "/createnewuser")
                 .permitAll()
-                .antMatchers("/users")
-                .hasAnyRole("ADMIN", "USER")
-                .antMatchers("/plants")
-                .hasAnyRole("ADMIN")
-                .antMatchers("/plant/**")
-                .hasAnyRole("ADMIN", "USER")
+                .antMatchers("/users/**")
+                .authenticated()
+                .antMatchers("/plants/**")
+                .authenticated()
                 .antMatchers("/logout")
                 .authenticated()
                 .anyRequest().denyAll()
-                .and().exceptionHandling()
+                .and()
+                .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
         https.csrf().disable();
 
-        https.headers().disable();
+        https.headers().frameOptions().disable();
 
         https.logout().disable();//disable default spring logout
     }

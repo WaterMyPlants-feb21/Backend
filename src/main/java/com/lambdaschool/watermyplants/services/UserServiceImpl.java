@@ -2,7 +2,9 @@ package com.lambdaschool.watermyplants.services;
 
 import com.lambdaschool.watermyplants.exceptions.ResourceNotFound;
 import com.lambdaschool.watermyplants.models.Plant;
+import com.lambdaschool.watermyplants.models.Role;
 import com.lambdaschool.watermyplants.models.User;
+import com.lambdaschool.watermyplants.models.UserRole;
 import com.lambdaschool.watermyplants.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private PlantService plantService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public User findUserById(long id)
@@ -51,10 +56,11 @@ public class UserServiceImpl implements UserService{
            Plant plant = plantService.findPlantById(p.getPlantid());
 
            newUser.getPlantList().add(plant);
-
         }
-        userrepos.save(newUser);
-        return newUser;
+        Role newRole = roleService.findRoleById(1);
+        newUser.getRoles().add(new UserRole(newUser,newRole));
+
+        return userrepos.save(newUser);
     }
 
     @Transactional
