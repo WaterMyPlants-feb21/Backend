@@ -20,7 +20,7 @@ public class SecurityUserServiceImpl implements UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String un) throws UsernameNotFoundException{
-        User user = userrepo.findByUsername(un.toLowerCase());
+        User user = userrepo.findByUsername(un);
         if(user == null){
             throw new EntityNotFoundException("Invalid Username or Password!");
         }
