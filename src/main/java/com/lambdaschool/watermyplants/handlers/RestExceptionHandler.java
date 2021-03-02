@@ -1,5 +1,6 @@
 package com.lambdaschool.watermyplants.handlers;
 
+import com.lambdaschool.watermyplants.exceptions.ResourceFoundException;
 import com.lambdaschool.watermyplants.exceptions.ResourceNotFound;
 import com.lambdaschool.watermyplants.models.ErrorDetail;
 import com.lambdaschool.watermyplants.services.HelperFunction;
@@ -58,5 +59,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         errorDetail.setErrors(helperFunction.getConstraintViolation(ex));
 
         return  new ResponseEntity<>(errorDetail, null,status);
+    }
+
+    @ExceptionHandler(ResourceFoundException.class)
+    public ResponseEntity<?> handleResourceFoundException(ResourceFoundException rfe)
+    {
+        ErrorDetail errorDetail = new ErrorDetail();
+        errorDetail.setTimestamp(new Date());
+        errorDetail.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorDetail.setTitle("Unexpected Resource");
+        errorDetail.setDetail(rfe.getMessage());
+        errorDetail.setDeveloperMessage(rfe.getClass()
+            .getName());
+        errorDetail.setErrors(helperFunction.getConstraintViolation(rfe));
+
+        return new ResponseEntity<>(errorDetail,
+            null,
+            HttpStatus.BAD_REQUEST);
     }
 }
