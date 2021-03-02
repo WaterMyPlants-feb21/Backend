@@ -95,8 +95,9 @@ public class User extends Auditable{
 
     public void setPassword(String password)
     {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.password = encoder.encode(password);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        this.password = passwordEncoder.encode(password);
     }
 
     public void setPasswordNoEncrypt(String password){
