@@ -1,5 +1,6 @@
 package com.lambdaschool.watermyplants.services;
 
+import com.lambdaschool.watermyplants.exceptions.ResourceNotFound;
 import com.lambdaschool.watermyplants.models.Plant;
 import com.lambdaschool.watermyplants.models.User;
 import com.lambdaschool.watermyplants.repositories.UserRepository;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService{
     public User findUserById(long id)
     {
         return userrepos.findById(id)
-            .orElseThrow(()-> new EntityNotFoundException());
+            .orElseThrow(()-> new ResourceNotFound("User " +id + " not found"));
     }
 
     @Transactional
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService{
 
         if(user.getUserid() != 0){
             userrepos.findById(user.getUserid())
-                .orElseThrow(()->new EntityNotFoundException("User "+user.getUserid() + " not found!"));
+                .orElseThrow(()->new ResourceNotFound("User "+user.getUserid() + " not found!"));
             newUser.setUserid(user.getUserid());
         }
 
