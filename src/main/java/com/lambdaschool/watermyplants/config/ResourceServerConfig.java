@@ -13,9 +13,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private static String RESOURCE_ID = "resource_id";
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources){
+    public void configure(ResourceServerSecurityConfigurer resources)
+    {
         resources.resourceId(RESOURCE_ID)
-                .stateless(false);
+            .stateless(false);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/createnewuser")
                 .permitAll()
                 .antMatchers("/users/**")
-                .authenticated()
+                .hasAnyRole("ADMIN","USER")
                 .antMatchers("/plants/**")
                 .authenticated()
                 .antMatchers("/logout")
