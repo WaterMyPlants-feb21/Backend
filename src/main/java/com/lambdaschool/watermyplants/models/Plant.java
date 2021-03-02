@@ -26,7 +26,6 @@ public class Plant extends Auditable {
     }
 
     public Plant(long plantid, String plantname, double intervalinhrs, User user) {
-        this.plantid = plantid;
         this.plantname = plantname;
         this.intervalinhrs = intervalinhrs;
         this.user = user;
