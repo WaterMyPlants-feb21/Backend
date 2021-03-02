@@ -27,6 +27,10 @@ public class PlantServiceImpl implements PlantService{
     @Override
     public Plant save(Plant plant) {
         Plant tempplant = new Plant();
+        if(plant.getPlantid()!=0){
+            tempplant = plantrepo.findById(plant.getPlantid()).orElseThrow(()->new EntityNotFoundException("Plant with id: "+plant.getPlantid()+" not found!"));
+        }
+        tempplant.setPlantname(plant.getPlantname());
         tempplant.setPlantname(plant.getPlantname());
         if(userrepo.findById(plant.getUser().getUserid()).isPresent()){
             tempplant.setUser(userrepo.findById(plant.getUser().getUserid()).orElseThrow(()-> new EntityNotFoundException("user with id " + plant.getUser().getUserid() + " does not exist")));

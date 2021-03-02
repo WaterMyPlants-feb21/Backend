@@ -12,6 +12,7 @@ public class Plant extends Auditable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long plantid;
 
+    @Column(nullable=false)
     private String plantname;
 
     @Column(nullable = false)
@@ -22,6 +23,13 @@ public class Plant extends Auditable {
     private User user;
 
     public Plant() {
+    }
+
+    public Plant(long plantid, String plantname, double intervalinhrs, User user) {
+        this.plantid = plantid;
+        this.plantname = plantname;
+        this.intervalinhrs = intervalinhrs;
+        this.user = user;
     }
 
     public long getPlantid() {

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service(value = "userService")
@@ -22,8 +24,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUserById(long id)
     {
-        return userrepos.findById(id)
-            .orElseThrow(()-> new EntityNotFoundException());
+        User user = userrepos.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("User with id: "+id+ " not found"));
+        return user;
     }
 
     @Transactional
@@ -33,13 +36,12 @@ public class UserServiceImpl implements UserService{
         User newUser = new User();
 
         if(user.getUserid() != 0){
-            userrepos.findById(user.getUserid())
-                .orElseThrow(()->new EntityNotFoundException("User "+user.getUserid() + " not found!"));
-            newUser.setUserid(user.getUserid());
+            newUser.setUserid(userrepos.findById(user.getUserid())
+                    .orElseThrow(()->new EntityNotFoundException("User "+user.getUserid() + " not found!")).getUserid());
         }
 
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
+        newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setPhoneNumber(user.getPhoneNumber());
 
         newUser.getPlantList().clear();
@@ -49,7 +51,8 @@ public class UserServiceImpl implements UserService{
            newUser.getPlantList().add(plant);
 
         }
-        return save(newUser);
+        userrepos.save(newUser);
+        return newUser;
     }
 
     @Transactional
@@ -74,5 +77,12 @@ public class UserServiceImpl implements UserService{
     public void deleteAll()
     {
         userrepos.deleteAll();
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> usersList = new ArrayList<>();
+        userrepos.findAll().iterator().forEachRemaining(usersList::add);
+        return usersList;
     }
 }

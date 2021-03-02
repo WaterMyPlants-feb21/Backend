@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -26,6 +27,12 @@ public class UserController {
 
        return new ResponseEntity<>(user,
            HttpStatus.OK);
+    }
+
+    @GetMapping(value = "", produces = {"application/json"})
+    public ResponseEntity<?> getAllUsers(){
+        List<User> users = userService.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping(value = "/user",consumes = "application/json")
