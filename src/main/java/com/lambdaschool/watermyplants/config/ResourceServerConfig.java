@@ -42,8 +42,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and().exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
-        https.csrf().disable();//required by h2
+        https.csrf().disable();
 
-        https.logout().disable();//diable default spring logout
+        https.headers().disable();
+
+        https.logout().disable();//disable default spring logout
     }
 }

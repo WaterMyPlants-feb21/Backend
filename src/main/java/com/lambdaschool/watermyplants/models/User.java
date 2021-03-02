@@ -91,12 +91,12 @@ public class User extends Auditable{
 
     public void setPassword(String password)
     {
-        this.password = password;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.password = encoder.encode(password);
     }
 
     public void setPasswordNoEncrypt(String password){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.password = encoder.encode(password);
+        this.password = password;
     }
 
     public Set<UserRole> getRoles() {
