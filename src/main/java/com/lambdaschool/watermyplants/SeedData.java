@@ -41,14 +41,14 @@ public class SeedData
         User testuser1 = new User();
         testuser1.setUsername("admin");
         //unencrypted password = adminpass
-        testuser1.setPassword("$2y$12$UZekIqOPntRiqgW0Cuzf4.tMO6ZPvRcHfGxDPMkHJ.z9dFw8STjz.");
+        testuser1.setPasswordNoEncrypt("$2y$12$UZekIqOPntRiqgW0Cuzf4.tMO6ZPvRcHfGxDPMkHJ.z9dFw8STjz.");
         testuser1.setPhoneNumber("2084212696");
         testuser1.getRoles().add(new UserRole(testuser1, r1));
 
         User testuser2 = new User();
         testuser2.setUsername("testuser");
         //unencrypted password = password
-        testuser2.setPassword("$2y$12$UQEpomEzFJz6wEyzUKUhoOv9QElCC9/x21Y94MyLBkP/c1H1CEvW6");
+        testuser2.setPasswordNoEncrypt("$2y$12$UQEpomEzFJz6wEyzUKUhoOv9QElCC9/x21Y94MyLBkP/c1H1CEvW6");
         testuser2.setPhoneNumber("2485556351");
         testuser2.getRoles().add(new UserRole(testuser2, r2));
 
