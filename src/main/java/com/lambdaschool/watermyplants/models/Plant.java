@@ -19,7 +19,7 @@ public class Plant extends Auditable {
     private double intervalinhrs;
 
     @ManyToOne
-    @JsonIgnoreProperties(value="plantlist")
+    @JsonIgnoreProperties(value="plantList")
     private User user;
 
     public Plant() {
