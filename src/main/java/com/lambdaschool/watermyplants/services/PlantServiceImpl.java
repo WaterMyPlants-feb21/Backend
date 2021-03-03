@@ -1,9 +1,12 @@
 package com.lambdaschool.watermyplants.services;
 
 import com.lambdaschool.watermyplants.models.Plant;
+import com.lambdaschool.watermyplants.models.User;
 import com.lambdaschool.watermyplants.repositories.PlantRepository;
 import com.lambdaschool.watermyplants.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -26,6 +29,8 @@ public class PlantServiceImpl implements PlantService{
 
     @Override
     public Plant save(Plant plant) {
+
+
         Plant tempplant = new Plant();
         if(plant.getPlantid()!=0){
             tempplant = plantrepo.findById(plant.getPlantid()).orElseThrow(()->new EntityNotFoundException("Plant with id: "+plant.getPlantid()+" not found!"));

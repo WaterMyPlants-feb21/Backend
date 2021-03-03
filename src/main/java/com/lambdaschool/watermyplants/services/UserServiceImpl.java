@@ -57,9 +57,14 @@ public class UserServiceImpl implements UserService{
 
            newUser.getPlantList().add(plant);
         }
-
-        Role newRole = roleService.findByName("user");
-        newUser.getRoles().add(new UserRole(newUser,newRole));
+            for (UserRole ur : user.getRoles())
+            {
+                Role addRole = roleService.findRoleById(ur.getRole()
+                    .getRoleid());
+                newUser.getRoles()
+                    .add(new UserRole(newUser,
+                        addRole));
+            }
 
         return userrepos.save(newUser);
     }

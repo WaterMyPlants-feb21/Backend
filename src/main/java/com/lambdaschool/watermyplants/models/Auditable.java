@@ -31,4 +31,5 @@ public class Auditable
     @LastModifiedDate
     @Temporal(TIMESTAMP)
     protected Date lastmodifieddate;
+
 }
