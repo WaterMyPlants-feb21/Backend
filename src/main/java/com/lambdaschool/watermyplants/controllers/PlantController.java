@@ -1,10 +1,14 @@
 package com.lambdaschool.watermyplants.controllers;
 
 import com.lambdaschool.watermyplants.models.Plant;
+import com.lambdaschool.watermyplants.models.User;
+import com.lambdaschool.watermyplants.repositories.UserRepository;
 import com.lambdaschool.watermyplants.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +18,9 @@ import java.util.List;
 public class PlantController {
     @Autowired
     private PlantService plantserv;
+
+    @Autowired
+    private UserRepository userrepos;
 
     @GetMapping(value="", produces = {"application/json"})
     public ResponseEntity<?> getAllPlants(){
@@ -30,7 +37,12 @@ public class PlantController {
 
     @PostMapping(value="/plant", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewPlant(@RequestBody Plant newplant){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User workingUser = userrepos.findByUsername(authentication.getName());
+
         newplant.setPlantid(0);
+        newplant.setUser(workingUser);
         Plant saved = plantserv.save(newplant);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
