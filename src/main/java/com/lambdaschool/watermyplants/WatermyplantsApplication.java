@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-@PropertySource(value="file:/Users/jamie/buildweek.properties", ignoreResourceNotFound = true)
+@PropertySource(value="file:/Users/yf/waterplant.properties", ignoreResourceNotFound = true)
 public class WatermyplantsApplication {
 
     public static void main(String[] args) {
