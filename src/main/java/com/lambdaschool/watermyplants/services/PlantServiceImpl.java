@@ -32,6 +32,8 @@ public class PlantServiceImpl implements PlantService{
         }
         tempplant.setNickname(plant.getNickname());
         tempplant.setNickname(plant.getNickname());
+        tempplant.setSpecies(plant.getSpecies());
+        tempplant.setH2oFrequency(plant.getH2oFrequency());
         if(userrepo.findById(plant.getUser().getUserid()).isPresent()){
             tempplant.setUser(userrepo.findById(plant.getUser().getUserid()).orElseThrow(()-> new EntityNotFoundException("user with id " + plant.getUser().getUserid() + " does not exist")));
         }else{
@@ -62,6 +64,12 @@ public class PlantServiceImpl implements PlantService{
             }
             if(plant.getNickname()!=null){
                 updateplant.setNickname(plant.getNickname());
+            }
+            if(plant.getSpecies()!=null){
+                updateplant.setSpecies(plant.getSpecies());
+            }
+            if(plant.getH2oFrequency()!=0){
+                updateplant.setH2oFrequency(plant.getH2oFrequency());
             }
             if(plant.getUser()!=null){
                 if(userrepo.findById(plant.getUser().getUserid()).isPresent()){

@@ -41,20 +41,20 @@ public class SeedData
 
         Role r1 = new Role("admin");
         Role r2 = new Role("user");
-        roleService.save(r1);
-        roleService.save(r2);
+        r1 = roleService.save(r1);
+        r2 = roleService.save(r2);
 
         User testuser1 = new User();
         testuser1.setUsername("admin");
         testuser1.setPassword("hello");
         testuser1.setPhoneNumber("2084212696");
-        testuser1.getRoles().add(new UserRole(testuser1, r1));
+        testuser1.getRoles().add(new UserRole(testuser1, roleService.findRoleById(r1.getRoleid())));
 
         User testuser2 = new User();
         testuser2.setUsername("testuser");
         testuser2.setPassword("world");
         testuser2.setPhoneNumber("2485556351");
-        testuser2.getRoles().add(new UserRole(testuser2, r2));
+        testuser2.getRoles().add(new UserRole(testuser2, roleService.findRoleById(r2.getRoleid())));
 
         testuser1 = userservice.save(testuser1);
         testuser2 = userservice.save(testuser2);
