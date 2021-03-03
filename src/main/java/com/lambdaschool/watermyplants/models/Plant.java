@@ -65,4 +65,12 @@ public class Plant extends Auditable {
     public void setH2oFrequency(double intervalinhrs) {
         this.h2oFrequency = intervalinhrs;
     }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
 }

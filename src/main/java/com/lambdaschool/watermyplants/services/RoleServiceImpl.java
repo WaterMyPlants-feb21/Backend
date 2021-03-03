@@ -31,7 +31,8 @@ public class RoleServiceImpl implements RoleService
             throw new ResourceFoundException("User Roles are not updated through Role.");
         }
 
-        return roleRepository.save(role);
+        roleRepository.save(role);
+        return role;
     }
 
     @Override
