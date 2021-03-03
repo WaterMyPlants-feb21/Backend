@@ -92,7 +92,7 @@
     </dependencies>
 
     <build>
-        <finalName>lukerdue-watermyplantsbuildweek</finalName>
+        <finalName>lukerdue-waterplantsbw</finalName>
 
         <plugins>
             <plugin>
