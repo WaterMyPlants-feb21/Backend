@@ -92,7 +92,7 @@
     </dependencies>
 
     <build>
-        <finalName>lukerdue-waterplantsbw</finalName>
+        <finalName>waterplantsbw</finalName>
 
         <plugins>
             <plugin>

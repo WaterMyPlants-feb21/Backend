@@ -55,10 +55,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         errorDetail.setStatus(status.value());
         errorDetail.setTitle("Rest Internal Exception");
         errorDetail.setDetail(ex.getMessage());
-        errorDetail.setDeveloperMessage(ex.getClass().getName());
+        errorDetail.setDeveloperMessage(ex.getClass()
+            .getName());
         errorDetail.setErrors(helperFunction.getConstraintViolation(ex));
 
-        return  new ResponseEntity<>(errorDetail, null,status);
+        return new ResponseEntity<>(errorDetail,
+            null,
+            status);
     }
 
     @ExceptionHandler(ResourceFoundException.class)
