@@ -40,4 +40,18 @@ public class RoleServiceImpl implements RoleService
     {
         roleRepository.deleteAll();
     }
+
+    @Override
+    public Role findByName(String name)
+    {
+        Role rr = roleRepository.findByNameIgnoreCase(name);
+
+        if (rr != null)
+        {
+            return rr;
+        } else
+        {
+            throw new ResourceNotFound(name);
+        }
+    }
 }
