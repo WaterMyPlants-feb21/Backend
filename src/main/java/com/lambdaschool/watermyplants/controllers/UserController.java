@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -34,9 +36,10 @@ public class UserController {
         List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value = "/user",consumes = "application/json")
-    public ResponseEntity<?> addUser(@Valid @RequestBody User newUser)
+    public ResponseEntity<?> addUser(@Valid @RequestBody User newUser)throws
+                                                                      URISyntaxException
     {
         newUser.setUserid(0);
         newUser = userService.save(newUser);
