@@ -3,14 +3,17 @@
 BaseURL: https://waterplantsbw.herokuapp.com
 
 Auth:
+
 POST:"/register", (username,password,phoneNumber) 
 
 POST:"/login" ,(username,password)
 
 Update User
+
 PATCH: "/users/user/:id",(phoneNumber (&&,||) password)
 
 Plants:
+
 GET: "/plants" -returns all plants
 
 GET: "/plants/plant/:id" - get by id
