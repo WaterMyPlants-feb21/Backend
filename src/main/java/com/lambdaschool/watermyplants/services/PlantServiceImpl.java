@@ -1,5 +1,7 @@
 package com.lambdaschool.watermyplants.services;
 
+import com.lambdaschool.watermyplants.exceptions.ResourceFoundException;
+import com.lambdaschool.watermyplants.exceptions.ResourceNotFound;
 import com.lambdaschool.watermyplants.models.Plant;
 import com.lambdaschool.watermyplants.models.User;
 import com.lambdaschool.watermyplants.repositories.PlantRepository;
@@ -42,7 +44,7 @@ public class PlantServiceImpl implements PlantService{
         if(userrepo.findById(plant.getUser().getUserid()).isPresent()){
             tempplant.setUser(userrepo.findById(plant.getUser().getUserid()).orElseThrow(()-> new EntityNotFoundException("user with id " + plant.getUser().getUserid() + " does not exist")));
         }else{
-            throw new EntityNotFoundException("Could not find user with id: "+plant.getUser().getUserid());
+            throw new ResourceNotFound("Could not find user with id: "+plant.getUser().getUserid());
         }
 
         plantrepo.save(tempplant);
@@ -52,9 +54,9 @@ public class PlantServiceImpl implements PlantService{
     @Override
     public void deletePlantById(long plantid) {
         if(plantrepo.findById(plantid).isPresent()){
-            throw new EntityNotFoundException("Could not find plant with id: "+plantid);
-        } else{
             plantrepo.deleteById(plantid);
+        } else{
+            throw new ResourceNotFound("Could not find plant with id: "+plantid);
         }
     }
 
